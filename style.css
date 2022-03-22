@@ -1,0 +1,120 @@
+body{
+    font-family: 'Space Mono', monospace;
+}
+
+/*header*/
+.header-container{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 1em;
+    background-image: linear-gradient(to right, blue, pink) ;
+    margin-bottom: 2em;
+}
+.header-container-title{
+    font-size:2em;
+}
+
+/*app*/
+.app{
+    display:flex;
+    align-items: center;
+    justify-content:center;
+    flex-direction: column;
+}
+
+/*app-header*/
+.app-header{
+    padding: 1em 0 1em 0;
+    text-align: center;
+    width:800px;
+    border: solid black 2px;
+    border-bottom: none;
+    background-image: linear-gradient(to right, rgb(97, 97, 255), rgb(253, 158, 174)) ;
+}
+.app-header-title{
+    font-size:1.4em;
+}
+
+/*app-gacha*/
+.app-gacha{
+    display:flex;
+    align-items: center;
+    justify-content:center;
+    border: solid black 2px;
+    width:800px;
+    height:650px;
+    background-image: linear-gradient(to right, rgb(97, 97, 255), rgb(253, 158, 174)) ;
+}
+
+/*app-gacha-panel*/
+.app-gacha-panel{
+    display:flex;
+    align-items: center;
+    justify-content:space-around;
+    flex-direction: column;
+    height:100%;
+    width: 30%;
+}
+
+.app-gacha-panel-option{
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+    border: solid black 2px;
+    width: 70%;
+    padding: 1em;
+}
+
+.app-gacha-panel-option-title{
+    font-size:1.2em;
+    margin-bottom: 0.5em;
+}
+
+.app-gacha-panel-option-button{
+    border: solid black 2px;
+    width: 80%;
+    height: 2em;
+    margin-bottom: 0.5em;
+    transition:all 100ms;
+    background-color: whitesmoke;
+}
+.app-gacha-panel-option-button:hover{
+    background-color: rgb(192, 192, 192);
+}
+
+.app-gacha-panel-option-counterItem{
+    border: solid black 2px;
+    width: 80%;
+    height: 2em;
+    margin-bottom: 0.5em;
+    background-color: whitesmoke;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.app-gacha-panel-option-counterItem{
+}
+
+/*app-gacha-logPanel*/
+.app-gacha-logPanel{
+    width: 70%;
+    height:100%;
+    border-left: solid black 2px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction:column;
+}
+.app-gacha-logPanel-title{
+    font-size: 1.5em;
+    margin-bottom: 0.5em;
+}
+.app-gacha-logPanel-log{
+    border: solid black 2px;
+    width: 90%;
+    height: 85%;
+    overflow-y: scroll;
+    background-color: whitesmoke;
+}
