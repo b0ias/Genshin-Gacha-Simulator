@@ -1,5 +1,6 @@
 body{
     font-family: 'Space Mono', monospace;
+    background-image: url("./images/background.jpg");
 }
 
 /*header*/
@@ -11,6 +12,8 @@ body{
     padding: 1em;
     background-image: linear-gradient(to right, blue, pink) ;
     margin-bottom: 2em;
+
+    border-bottom: solid black 2px;
 }
 .header-container-title{
     font-size:2em;
@@ -79,9 +82,13 @@ body{
     margin-bottom: 0.5em;
     transition:all 100ms;
     background-color: whitesmoke;
+    cursor:pointer;
 }
 .app-gacha-panel-option-button:hover{
     background-color: rgb(192, 192, 192);
+}
+.app-gacha-panel-option-button:active{
+    background-color: rgb(216, 216, 216);
 }
 
 .app-gacha-panel-option-counterItem{
@@ -93,8 +100,6 @@ body{
     display:flex;
     justify-content: center;
     align-items: center;
-}
-.app-gacha-panel-option-counterItem{
 }
 
 /*app-gacha-logPanel*/
