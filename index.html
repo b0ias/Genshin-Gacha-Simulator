@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>GGS - Genshin Gacha Simulator</title>
-
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="reset.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
@@ -29,15 +29,15 @@
                 <div class="app-gacha-panel">
                     <div class="app-gacha-panel-option">
                         <h3 class="app-gacha-panel-option-title">&star; Wishes &star;</h3>
-                        <button class="app-gacha-panel-option-button">1X</button>
-                        <button class="app-gacha-panel-option-button">10X</button>
+                        <button class="app-gacha-panel-option-button" data-gachaButton="1">1X</button>
+                        <button class="app-gacha-panel-option-button" data-gachaButton="10">10X</button>
                     </div>
 
                     <div class="app-gacha-panel-option">
                         <h3 class="app-gacha-panel-option-title">Wish Counter</h3>
 
                         <div class="app-gacha-panel-option-counterItem">
-                            <p>0</p>
+                            <p data-gachaCounter="all">0</p>
                         </div>
                     </div>
 
@@ -45,30 +45,32 @@
                         <h3 class="app-gacha-panel-option-title">Rarity Counter</h3>
 
                         <div class="app-gacha-panel-option-counterItem">
-                            <p>0 T3</p>
+                            <p data-gachaCounter="T3">0 T3</p>
                         </div>
                         <div class="app-gacha-panel-option-counterItem">
-                            <p>0 T4</p>
+                            <p data-gachaCounter="T4">0 T4</p>
                         </div>
                         <div class="app-gacha-panel-option-counterItem">
-                            <p>0 T5</p>
+                            <p data-gachaCounter="T5">0 T5</p>
                         </div>
                     </div>
 
                     <div class="app-gacha-panel-option">
                         <h3 class="app-gacha-panel-option-title">Reset</h3>
 
-                        <button class="app-gacha-panel-option-button">Reset</button>
+                        <button class="app-gacha-panel-option-button" data-resetButton>Reset</button>
                     </div>
                 </div>
 
                 <div class="app-gacha-logPanel">
                     <h3 class="app-gacha-logPanel-title">Log:</h3>
-                    <div class="app-gacha-logPanel-log">
+                    <div class="app-gacha-logPanel-log" data-gachaLogPanel>
+    
                     </div>
                 </div>
             </div>
         </div>
     </main>
+    <script type="module" src="scripts/index.js"></script>
 </body>
 </html>
