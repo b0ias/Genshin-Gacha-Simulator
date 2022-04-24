@@ -1,29 +1,30 @@
 export const fetchInfCharacters = async () => {
     //get names characters
     const getNameCharactersUrl = `https://api.genshin.dev/characters/`
-    const namesCharactersPromiseResult = await fetch(getNameCharactersUrl)
-    let nameCharactersList = await namesCharactersPromiseResult.json();
+    const charactersNamesPromiseResult = await fetch(getNameCharactersUrl)
+    let charactersNameList = await charactersNamesPromiseResult.json();
 
     //get characters informations
     const getCharactersInfUrl = name => `https://api.genshin.dev/characters/${name}`
-    const infCharactersPromises = Array(nameCharactersList.length).fill().map((_, index) =>
-        fetch(getCharactersInfUrl(nameCharactersList[index])).then(response => response.json()))
-        const infCharactersList = await Promise.all(infCharactersPromises);
+    const infCharactersPromises = Array(charactersNameList.length).fill().map((_, index) =>
+        fetch(getCharactersInfUrl(charactersNameList[index])).then(response => response.json()))
+        const charactersInfList = await Promise.all(infCharactersPromises);
 
-    //associate URL name
-    for (let i = 0; i < infCharactersList.length; i++) {
-        infCharactersList[i].urlName = nameCharactersList[i];
+    //associate URL name and set type = character
+    for (let i = 0; i < charactersInfList.length; i++) {
+        charactersInfList[i].urlName = charactersNameList[i];
+        charactersInfList[i].itemType = "character";
     }
 
     //organize characters informations
     let fiveStarCharacterList = [];
     let fourStarCharacterList = [];
 
-    for (let i = 0; i < infCharactersList.length; i++) {
-        if (infCharactersList[i].rarity == 5) {
-            fiveStarCharacterList.push(infCharactersList[i]);
-        } else if (infCharactersList[i].rarity == 4) {
-            fourStarCharacterList.push(infCharactersList[i]);
+    for (let i = 0; i < charactersInfList.length; i++) {
+        if (charactersInfList[i].rarity == 5) {
+            fiveStarCharacterList.push(charactersInfList[i]);
+        } else if (charactersInfList[i].rarity == 4) {
+            fourStarCharacterList.push(charactersInfList[i]);
         }
     }
     return [fiveStarCharacterList, fourStarCharacterList];
@@ -31,18 +32,19 @@ export const fetchInfCharacters = async () => {
 export const fetchInfWeapon = async () => {
     //get names weapon list
     const getNamesWeaponUrl = `https://api.genshin.dev/weapons/`;
-    const namesWeaponPromise = await fetch(getNamesWeaponUrl);
-    const namesWeaponList = await namesWeaponPromise.json()
+    const weaponNamesWPromise = await fetch(getNamesWeaponUrl);
+    const weaponNamesList = await weaponNamesWPromise.json()
 
     //get weapon names
     const getInfWeaponUrl = weapon => `https://api.genshin.dev/weapons/${weapon}`;
-    const infWeaponPromise = Array(namesWeaponList.length).fill("").map((_, index) => fetch(getInfWeaponUrl(namesWeaponList[index])).then(response => response.json()))
+    const weaponInfPromise = Array(weaponNamesList.length).fill("").map((_, index) => fetch(getInfWeaponUrl(weaponNamesList[index])).then(response => response.json()))
 
-    const infWeaponList = await Promise.all(infWeaponPromise);
+    const infWeaponList = await Promise.all(weaponInfPromise);
 
     //associate URL name
     for (let i = 0; i < infWeaponList.length; i++) {
-        infWeaponList[i].urlName = namesWeaponList[i];
+        infWeaponList[i].urlName = weaponNamesList[i];
+        infWeaponList[i].itemType = "weapon";
     }
 
     //organize characters informations

@@ -6,14 +6,14 @@ import { creatWish } from "./gachaFunctions.js"
 import { resetAll } from "./gachaFunctions.js"
 
 //import Inf Characters Array[[fiveStarCharacterList], [fourStarCharacterList]]
-let infCharactersList;
+let charactersInfList;
 fetchInfCharacters()
-  .then(response => infCharactersList = response)
+  .then(response => charactersInfList = response)
 
-//import inf weapon Array[inf weapons list]
-let infWeaponList;
+//import inf weapon Array[fiveStarWeaponList, fourStarWeaponList, threeStarWeaponList]
+let weaponInfList;
 fetchInfWeapon()
-  .then(response => infWeaponList = response)
+  .then(response => weaponInfList = response)
 
 await fetchInfCharacters();
 await fetchInfWeapon();
@@ -27,7 +27,7 @@ const HTMLgachaLogPainel = document.querySelector("[data-gachaLogPanel]");
 //events
 gachaButton.forEach(button => button.addEventListener("click", () => {
   const buttonValue = button.dataset.gachabutton;
-  creatWish(buttonValue, infCharactersList, HTMLgachaLogPainel, HTMLgachaCounter); //buttonValue (1x or 10x), infCharactersList, HTMLgachaLogPainel (DOMselector)
+  creatWish(buttonValue, charactersInfList, weaponInfList, HTMLgachaLogPainel, HTMLgachaCounter); //buttonValue (1x or 10x), charactersInfList, HTMLgachaLogPainel (DOMselector)
 }))
 HTMLresetButton.addEventListener(`click`, () => {
   resetAll(HTMLgachaLogPainel, HTMLgachaCounter)

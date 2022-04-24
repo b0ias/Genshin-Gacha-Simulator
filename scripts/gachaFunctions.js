@@ -11,7 +11,7 @@ const PityCounter = {
 }
 
 //update Counter
-const updateValueCounter = (resultRarityProbablyTest) => {
+const updateValueCounterAndPityCounter = (resultRarityProbablyTest) => {
     //wish counter
     WishCounter.all += 1;
     const rarityCounter = {
@@ -97,46 +97,28 @@ const equalityProbablyTest = (arratList) => {
 }
 
 //creat a new wish - return Array [result]
-const newWish = (buttonValue, infCharactersList) => {
+const newWish = (buttonValue, charactersInfList, weaponInfList) => {
     let resultNewWish = [];
     for (let i = 0; i < buttonValue; i++) {
-        const resultRarityProbablyTest = probablyTest([10, 30, 60], [0, 1, 1]);
-        updateValueCounter(resultRarityProbablyTest);
-        resultNewWish.push(equalityProbablyTest(infCharactersList[resultRarityProbablyTest]));
+        const resultRarityProbablyTest = probablyTest([10, 30, 60], [0, 1, 2]);
+        updateValueCounterAndPityCounter(resultRarityProbablyTest);
+        
+        let infWishList = []
+        if (resultRarityProbablyTest <= 1){
+            infWishList = equalityProbablyTest([charactersInfList, weaponInfList]);
+        } else if(resultRarityProbablyTest > 1){
+            infWishList = weaponInfList;
+        }
+
+        resultNewWish.push(equalityProbablyTest(infWishList[resultRarityProbablyTest]));
     }
     return resultNewWish;
 }
 
 //creat a HTML of wish - return HTML of Wish
 const creatWishHTML = (arrayWishes) => {
-    const content = arrayWishes.reduce((accumulator, { name, rarity, vision, weapon, urlName}) =>
-        accumulator +
-        `
-      <div class="app-gacha-logPanel-log-wish-character character-${vision.toLowerCase()}">
-      <img class="app-gacha-logPanel-log-wish-character-image" src="https://api.genshin.dev/characters/${urlName}/icon" alt="image character">
-      <div class="app-gacha-logPanel-log-wish-character-inf">
-          <table class="app-gacha-logPanel-log-wish-character-inf-table">
-              <tr>
-                  <td>Name:</td>
-                  <td>${name}</td>
-              </tr>
-              <tr>
-                  <td>Rarity:</td>
-                  <td>${rarity} &star;</td>
-              </tr>
-              <tr>
-                  <td>Element:</td>
-                  <td>${vision}</td>
-              </tr>
-              <tr>
-                  <td>Weapon:</td>
-                  <td>${weapon}</td>
-              </tr>
-          </tr>  
-          </table>
-      </div>
-    </div>\n
-      `, "")
+    const content = arrayWishes.reduce((accumulator, wishes) =>
+        accumulator + creatInfWishHTML(wishes), "")
 
     const resultWishHTML =
         `
@@ -147,9 +129,72 @@ const creatWishHTML = (arrayWishes) => {
     `
     return resultWishHTML;
 }
+const creatInfWishHTML = (wishes) => {
+    if(wishes.itemType == "character"){
+        return creatCharacterWishHTML(wishes)
+    }else if(wishes.itemType == "weapon"){
+        return creatWeaponWishHTML(wishes)
+    }
+}
+const creatCharacterWishHTML = ({ name, rarity, vision, weapon, urlName}) => {
+    return `
+    <div class="app-gacha-logPanel-log-wish-wishPainel character-${vision.toLowerCase()}">
+    <img class="app-gacha-logPanel-log-wish-wishPainel-image" src="https://api.genshin.dev/characters/${urlName}/icon" alt="image character">
+    <div class="app-gacha-logPanel-log-wish-wishPainel-inf">
+        <table class="app-gacha-logPanel-log-wish-wishPainel-inf-table">
+            <tr>
+                <td>Name:</td>
+                <td>${name}</td>
+            </tr>
+            <tr>
+                <td>Rarity:</td>
+                <td>${rarity} &star;</td>
+            </tr>
+            <tr>
+                <td>Element:</td>
+                <td>${vision}</td>
+            </tr>
+            <tr>
+                <td>Weapon:</td>
+                <td>${weapon}</td>
+            </tr>
+        </tr>  
+        </table>
+    </div>
+  </div>\n
+  `
+}
+const creatWeaponWishHTML = ({ name, rarity, type, passiveName, urlName}) => {
+    return `
+    <div class="app-gacha-logPanel-log-wish-wishPainel weapon-${rarity}Star">
+        <img class="app-gacha-logPanel-log-wish-wishPainel-image" src="https://api.genshin.dev/weapons/${urlName}/icon" alt="image weapon">
+        <div class="app-gacha-logPanel-log-wish-wishPainel-inf">
+            <table class="app-gacha-logPanel-log-wish-wishPainel-inf-table">
+                <tr>
+                    <td>Name:</td>
+                    <td>${name}</td>
+                </tr>
+                <tr>
+                    <td>Rarity:</td>
+                    <td>${rarity} &star;</td>
+                </tr>
+                <tr>
+                    <td>Type:</td>
+                    <td>${type}</td>
+                </tr>
+                <tr>
+                    <td>Passive:</td>
+                    <td>${passiveName}</td>
+                </tr>
+            </tr>  
+            </table>
+        </div>
+    </div>\n
+  `
+}
 
-export const creatWish = (buttonValue, infCharactersList, HTMLgachaLogPainel, HTMLgachaCounter) => {
-    const wishes = newWish(buttonValue, infCharactersList); //return Array [result]
+export const creatWish = (buttonValue, charactersInfList, weaponInfList, HTMLgachaLogPainel, HTMLgachaCounter) => {
+    const wishes = newWish(buttonValue, charactersInfList, weaponInfList); //return Array [result]
     const resultWishHTML = creatWishHTML(wishes); //return HTML of Wish
     updateHTMLCounter(HTMLgachaCounter); //HTML counter update
     HTMLgachaLogPainel.innerHTML += resultWishHTML; //put HTML into DOM
