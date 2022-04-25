@@ -96,11 +96,51 @@ const equalityProbablyTest = (arratList) => {
     return getProbabilityResult(equalityProbably, arratList) //probability return answer
 }
 
+const getProbability = () => {
+    let probably = []
+    //Five star probability
+    const FiveStarPrabability = {
+        76 : 20,
+        77 : 14,
+        78 : 10,
+        79 : 7,
+        80 : 5,
+        90 : 100
+    }
+    console.log(FiveStarPrabability[PityCounter.t5 + 1] != undefined)
+    for (let i = 0; i < Object.keys(FiveStarPrabability).length; i++){
+        if(FiveStarPrabability[PityCounter.t5 + 1] != undefined){
+            probably[0] = FiveStarPrabability[PityCounter.t5 + 1]
+        } else{
+            probably[0] = 0.6
+        }
+    }
+
+    //Four star probability
+    if(PityCounter.t4 == 10 - 1) {
+        console.log("chegou")
+
+        if(probably[0] < 1,6){
+            probably[0] = 1,6
+        }
+        probably[1] = 100 - probably[0];
+    } else{
+        probably[1] = 2.5
+    }
+
+    //three star probability
+    probably[2] = 100 - (probably[0] + probably[1])
+
+    //return
+    console.log(probably)
+    return probably
+}
+
 //creat a new wish - return Array [result]
 const newWish = (buttonValue, charactersInfList, weaponInfList) => {
     let resultNewWish = [];
     for (let i = 0; i < buttonValue; i++) {
-        const resultRarityProbablyTest = probablyTest([10, 30, 60], [0, 1, 2]);
+        const resultRarityProbablyTest = probablyTest(getProbability(), [0, 1, 2]);
         updateValueCounterAndPityCounter(resultRarityProbablyTest);
         
         let infWishList = []
