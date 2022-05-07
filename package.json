@@ -1,0 +1,19 @@
+{
+  "name": "genshin-gacha-simulator",
+  "version": "1.0.0",
+  "description": "Genshin Gacha Simulator made by HTML5, CSS3 and JS using the API: \"https://api.genshin.dev\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/b0ias/Genshin-Gacha-Simulator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/b0ias/Genshin-Gacha-Simulator/issues"
+  },
+  "homepage": "https://github.com/b0ias/Genshin-Gacha-Simulator#readme"
+}

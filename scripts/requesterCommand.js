@@ -17,16 +17,9 @@ export const fetchInfCharacters = async () => {
     }
 
     //organize characters informations
-    let fiveStarCharacterList = [];
-    let fourStarCharacterList = [];
+    let fiveStarCharacterList = charactersInfList.filter(character => character.rarity == 5);
+    let fourStarCharacterList = charactersInfList.filter(character => character.rarity == 4);
 
-    for (let i = 0; i < charactersInfList.length; i++) {
-        if (charactersInfList[i].rarity == 5) {
-            fiveStarCharacterList.push(charactersInfList[i]);
-        } else if (charactersInfList[i].rarity == 4) {
-            fourStarCharacterList.push(charactersInfList[i]);
-        }
-    }
     return [fiveStarCharacterList, fourStarCharacterList];
 }
 export const fetchInfWeapon = async () => {
@@ -39,27 +32,18 @@ export const fetchInfWeapon = async () => {
     const getInfWeaponUrl = weapon => `https://api.genshin.dev/weapons/${weapon}`;
     const weaponInfPromise = Array(weaponNamesList.length).fill("").map((_, index) => fetch(getInfWeaponUrl(weaponNamesList[index])).then(response => response.json()))
 
-    const infWeaponList = await Promise.all(weaponInfPromise);
+    const weaponInfList = await Promise.all(weaponInfPromise);
 
     //associate URL name
-    for (let i = 0; i < infWeaponList.length; i++) {
-        infWeaponList[i].urlName = weaponNamesList[i];
-        infWeaponList[i].itemType = "weapon";
+    for (let i = 0; i < weaponInfList.length; i++) {
+        weaponInfList[i].urlName = weaponNamesList[i];
+        weaponInfList[i].itemType = "weapon";
     }
 
     //organize characters informations
-    let fiveStarWeaponList = [];
-    let fourStarWeaponList = [];
-    let threeStarWeaponList = [];
+    let fiveStarWeaponList = weaponInfList.filter(weapon => weapon.rarity == 5);
+    let fourStarWeaponList = weaponInfList.filter(weapon => weapon.rarity == 4);;
+    let threeStarWeaponList = weaponInfList.filter(weapon => weapon.rarity == 3);;
 
-    for (let i = 0; i < infWeaponList.length; i++) {
-        if (infWeaponList[i].rarity == 5) {
-            fiveStarWeaponList.push(infWeaponList[i]);
-        } else if (infWeaponList[i].rarity == 4) {
-            fourStarWeaponList.push(infWeaponList[i]);
-        } else if (infWeaponList[i].rarity == 3) {
-            threeStarWeaponList.push(infWeaponList[i]);
-        }
-    }
     return [fiveStarWeaponList, fourStarWeaponList, threeStarWeaponList];
 }
